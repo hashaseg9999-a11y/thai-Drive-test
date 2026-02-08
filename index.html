@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1e3a8a">
+    <title>Thai Driver's License Exam 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#1e3a8a', // Main Background
+                            800: '#1e40af',
+                            700: '#1d4ed8',
+                        },
+                        safety: {
+                            yellow: '#facc15', // Accent / Warning
+                        },
+                        offwhite: '#f8fafc', // Content Background
+                    },
+                    fontFamily: {
+                        th: ['Kanit', 'sans-serif'],
+                        jp: ['Noto Sans JP', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc;
+            /* Prevent pull-to-refresh on mobile */
+            overscroll-behavior-y: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .th-text {
+            font-family: 'Kanit', sans-serif;
+            line-height: 1.5;
+        }
+
+        .btn-touch {
+            min-height: 56px;
+            /* Larger touch target */
+        }
+
+        .btn-press:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        /* Mobile-friendly scroll container */
+        .content-scroll {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Hide scrollbar */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-offwhite min-h-[100dvh] flex flex-col text-gray-800">
+
+    <!-- Header (Fixed) -->
+    <header class="bg-navy-900 text-white p-4 shadow-md z-50 sticky top-0 safe-area-top">
+        <div class="flex justify-between items-center max-w-md mx-auto">
+            <div>
+                <h1 class="font-bold text-lg leading-tight">Thai License Prep</h1>
+                <p class="text-xs text-slate-300">外免切替 知識確認 (2025)</p>
+            </div>
+            <div class="text-right">
+                <div class="bg-navy-800 px-3 py-1 rounded-full text-xs font-mono border border-navy-700">
+                    Ver 2.0
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content (Scrollable) -->
+    <main id="app-container"
+        class="flex-grow overflow-y-auto content-scroll pb-24 md:max-w-5xl mx-auto w-full relative px-4 md:px-0">
+
+        <!-- SECTION: HOME -->
+        <section id="screen-home" class="p-6 space-y-8 animate-fade-in max-w-2xl mx-auto">
+            <!-- Header/Intro -->
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl font-bold text-navy-900">Select Mode</h2>
+                <p class="th-text text-xl text-gray-600">เลือกโหมดการสอบ</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- MODE 1: KNOWLEDGE TEST -->
+                <button onclick="startExam()"
+                    class="bg-white rounded-2xl p-6 shadow-lg shadow-navy-900/10 border-2 border-transparent hover:border-navy-500 hover:shadow-xl transition group text-left relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <span class="text-8xl">📝</span>
+                    </div>
+                    <div
+                        class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-3xl mb-4">
+                        📝
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-1">Written Test</h3>
+                    <p class="th-text text-lg text-gray-600 mb-4">ข้อสอบใบขับขี่ (学科試験)</p>
+                    <div class="flex items-center text-sm font-bold text-blue-600">
+                        <span>START QUIZ</span>
+                        <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- MODE 2: PRACTICAL GUIDE -->
+                <button onclick="showGuide()"
+                    class="bg-navy-900 text-white rounded-2xl p-6 shadow-lg shadow-navy-900/20 border-2 border-transparent hover:border-safety-yellow transition group text-left relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <span class="text-8xl">🚗</span>
+                    </div>
+                    <div
+                        class="w-14 h-14 bg-white/20 text-white rounded-xl flex items-center justify-center text-3xl mb-4">
+                        🚗
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1">Practical Guide</h3>
+                    <p class="th-text text-lg text-slate-300 mb-4">คู่มือสอบปฏิบัติ (実技試験)</p>
+                    <div class="flex items-center text-sm font-bold text-safety-yellow">
+                        <span>OPEN GUIDE</span>
+                        <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Info -->
+            <div class="text-center text-xs text-gray-400 mt-8">
+                Based on 2025 Traffic Rules<br>
+                Latest Updates Included
+            </div>
+        </section>
+
+        <!-- SECTION: QUIZ -->
+        <section id="screen-quiz" class="hidden min-h-full flex flex-col">
+            <!-- Progress Bar (Sticky under header) -->
+            <div class="sticky top-0 z-40 bg-offwhite px-0 pt-0 pb-2">
+                <div class="h-1.5 w-full bg-slate-200">
+                    <div id="progress-bar" class="h-full bg-safety-yellow transition-all duration-300"
+                        style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between px-4 py-2 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                    <span>Q <span id="q-current">1</span></span>
+                    <span>/ <span id="q-total">50</span></span>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="flex-grow flex flex-col px-6 pb-6">
+                <div
+                    class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6 flex-grow flex flex-col justify-center min-h-[300px]">
+                    <div class="space-y-6">
+                        <!-- Thai Text (Primary) -->
+                        <div>
+                            <span
+                                class="text-xs font-bold text-navy-900 bg-navy-50 px-2 py-1 rounded mb-2 inline-block">THAI</span>
+                            <p id="q-text-th" class="th-text text-2xl font-medium text-gray-900 leading-normal"></p>
+                        </div>
+
+                        <hr class="border-slate-100">
+
+                        <!-- JP Text (Secondary) -->
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 mb-1 block">JAPANESE</span>
+                            <p id="q-text-jp" class="text-lg text-gray-500 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Answer Buttons (Fixed Bottom on Mobile usually, but let's keep inline for flow) -->
+                <div class="grid grid-cols-2 gap-4 pb-8">
+                    <!-- TRUE -->
+                    <button onclick="submitAnswer(true)"
+                        class="btn-touch btn-press bg-white border-2 border-slate-100 rounded-2xl p-4 flex flex-col items-center justify-center gap-1 hover:bg-blue-50 hover:border-blue-200 transition relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-blue-500 opacity-0 group-active:opacity-5 transition"></div>
+                        <span class="text-3xl text-blue-600 relative z-10">〇</span>
+                        <span class="font-bold text-gray-700 relative z-10">TRUE / ถูก</span>
+                    </button>
+                    <!-- FALSE -->
+                    <button onclick="submitAnswer(false)"
+                        class="btn-touch btn-press bg-white border-2 border-slate-100 rounded-2xl p-4 flex flex-col items-center justify-center gap-1 hover:bg-red-50 hover:border-red-200 transition relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-red-500 opacity-0 group-active:opacity-5 transition"></div>
+                        <span class="text-3xl text-red-600 relative z-10">✕</span>
+                        <span class="font-bold text-gray-700 relative z-10">FALSE / ผิด</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: FEEDBACK MODAL (Overlay) -->
+        <div id="modal-feedback"
+            class="hidden fixed inset-0 z-[60] flex items-end sm:items-center justify-center pointer-events-none">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity duration-300"
+                onclick="nextQuestion()"></div>
+
+            <!-- Modal Content -->
+            <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-2xl p-6 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] transform transition-transform duration-300 translate-y-full pointer-events-auto"
+                id="feedback-content">
+                <div class="text-center mb-6">
+                    <div id="fb-icon"
+                        class="w-16 h-16 mx-auto rounded-full flex items-center justify-center text-4xl mb-3 shadow-inner">
+                        <!-- Icon JS -->
+                    </div>
+                    <h3 id="fb-title" class="text-2xl font-bold mb-1"></h3>
+                    <p id="fb-subtitle" class="text-gray-500 th-text"></p>
+                </div>
+
+                <div class="bg-slate-50 rounded-xl p-4 text-left space-y-3 mb-6 border border-slate-100">
+                    <p class="text-xs font-bold text-gray-400 uppercase">Explanation / คำอธิบาย</p>
+                    <p id="fb-expl-th" class="th-text text-lg text-gray-800"></p>
+                    <p id="fb-expl-jp" class="text-sm text-gray-500"></p>
+                </div>
+
+                <button onclick="nextQuestion()"
+                    class="w-full bg-navy-900 text-white font-bold py-4 rounded-xl btn-press shadow-lg shadow-navy-900/20">
+                    Next / ข้อต่อไป
+                </button>
+            </div>
+        </div>
+
+        <!-- SECTION: GUIDE -->
+<section id="screen-guide" class="hidden min-h-full bg-offwhite">
+    <!-- Sticky Header for Guide -->
+    <div class="sticky top-0 z-40 bg-navy-900 text-white p-4 shadow-md flex items-center gap-4">
+        <button onclick="showHome()" class="p-2 -ml-2 hover:bg-white/10 rounded-full transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        <div>
+            <h2 class="font-bold text-lg">คู่มือสอบปฏิบัติ / 実技試験ガイド</h2>
+            <p class="text-xs text-slate-300">ฉบับปี 2025 (Gaimen Kirikae)</p>
+        </div>
+    </div>
+
+    <div class="p-6 space-y-8 max-w-4xl mx-auto">
+
+        <!-- INTRO: Mindset -->
+        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6">
+            <h3 class="font-bold text-navy-900 text-xl mb-2 flex items-center gap-2">
+                <span>💡</span>
+                <span>Mindset / 心構え</span>
+            </h3>
+            <div class="space-y-2">
+                <p class="th-text text-gray-800 text-lg">
+                    สิ่งสำคัญไม่ใช่ "ขับรถเก่ง" แต่คือ <span
+                        class="font-bold text-red-600">"ขับรถปลอดภัยและรักษากฎจราจร"</span>
+                </p>
+                <p class="text-sm text-gray-500">
+                    試験官は警察官です。彼らは「安全確認」と「法規走行」を見ています。
+                </p>
+                <div class="bg-white p-3 rounded-lg border border-blue-200 mt-2">
+                    <span class="block font-bold text-blue-800 text-sm">Be an Actor! / 演技派になろう</span>
+                    <span class="block th-text text-gray-700">การมองกระจกต้องหันหัวให้ชัดเจน (Over-action)
+                        เพื่อให้ผู้คุมสอบรู้ว่าเรามองแล้ว</span>
+                </div>
+
+                <!-- SUB-SECTION: TIMELINE CHECKLIST -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <h3 class="font-bold text-xl text-navy-900 mb-4 flex items-center gap-2">
+                        <span>📋</span>
+                        <span>Exam Flow / 試験当日の流れ</span>
+                    </h3>
+                    <div class="relative pl-4 border-l-2 border-slate-200 space-y-8">
+
+                        <!-- Timeline Item 1 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[25px] top-0 w-4 h-4 rounded-full bg-navy-900 border-4 border-white shadow-sm">
+                            </div>
+                            <h4 class="font-bold text-navy-900">1. Reception & Vision Test</h4>
+                            <p class="text-xs text-gray-400 mb-1">受付・適性検査</p>
+                            <p class="th-text text-gray-600 text-sm">
+                                ยื่นเอกสารและทดสอบสายตา (ห้ามลืมแว่นตา!)
+                            </p>
+                        </div>
+
+                        <!-- Timeline Item 2 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[25px] top-0 w-4 h-4 rounded-full bg-navy-700 border-4 border-white shadow-sm">
+                            </div>
+                            <h4 class="font-bold text-navy-900">2. Course Walk</h4>
+                            <p class="text-xs text-gray-400 mb-1">コース下見</p>
+                            <p class="th-text text-gray-600 text-sm">
+                                เดินดูเส้นทางจริง จําจุดเลี้ยวและป้ายหยุด (สำคัญมาก!)
+                            </p>
+                        </div>
+
+                        <!-- Timeline Item 3 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[25px] top-0 w-4 h-4 rounded-full bg-blue-500 border-4 border-white shadow-sm">
+                            </div>
+                            <h4 class="font-bold text-navy-900">3. Waiting & Observation</h4>
+                            <p class="text-xs text-gray-400 mb-1">待機・同乗</p>
+                            <p class="th-text text-gray-600 text-sm">
+                                รอเรียกชื่อ + นั่งเบาะหลังดูเพื่อนขับ (ห้ามหลับ!)
+                            </p>
+                        </div>
+
+                        <!-- Timeline Item 4 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[25px] top-0 w-4 h-4 rounded-full bg-safety-yellow border-4 border-white shadow-sm">
+                            </div>
+                            <h4 class="font-bold text-navy-900">4. The Exam (Driving)</h4>
+                            <p class="text-xs text-gray-400 mb-1">試験本番</p>
+                            <div class="bg-slate-50 p-2 rounded text-sm th-text text-gray-600 mt-1">
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li>慣らし運転 (Warming up)</li>
+                                    <li>Start Exam (เริ่มสอบจริง)</li>
+                                    <li>Park & Exit (จอดและลงรถ)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 5 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[25px] top-0 w-4 h-4 rounded-full bg-green-500 border-4 border-white shadow-sm">
+                            </div>
+                            <h4 class="font-bold text-navy-900">5. Result Announcement</h4>
+                            <p class="text-xs text-gray-400 mb-1">合格発表</p>
+                            <p class="th-text text-gray-600 text-sm">
+                                <span class="font-bold text-green-600">Passed (ผ่าน):</span> ไปถ่ายรูปทำใบขับขี่<br>
+                                <span class="font-bold text-red-600">Failed (ไม่ผ่าน):</span>
+                                ฟังคำแนะนำจากครูเพื่อแก้ตัวรอบหน้า
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 1: Pre-drive -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="grid md:grid-cols-2">
+                <div class="bg-slate-100 aspect-video md:aspect-auto flex items-center justify-center relative">
+                    <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=Check+Around+Car" alt="Safety Check"
+                        class="w-full h-full object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">Step 1</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl text-navy-900 mb-4">1. Ride / 乗車<br><span
+                            class="text-sm text-gray-500 font-normal">乗車前の準備</span></h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <span class="block font-bold text-gray-800">Check Around / 周囲確認</span>
+                            <span class="block th-text text-gray-600">ก้มมองใต้ท้องรถ เช็คยางหน้า-หลัง
+                                (ชี้ไปที่ล้อ)</span>
+                        </li>
+                        <li>
+                            <span class="block font-bold text-gray-800">Entry / 乗り込み</span>
+                            <span class="block th-text text-gray-600">ก่อนเปิดประตู <span
+                                    class="text-red-600 font-bold">ต้องหันไปมองรถด้านหลัง</span></span>
+                        </li>
+                        <li>
+                            <span class="block font-bold text-gray-800">Cockpit Drill (5 Points) / 車内儀式</span>
+                            <span class="block th-text text-gray-600">
+                                1. ล็อคประตู (Lock)<br>
+                                2. ปรับเบาะ (Seat)<br>
+                                3. กระจกหลัง (Room Mirror - จับให้เห็น!)<br>
+                                4. กระจกข้าง (Side Mirror)<br>
+                                5. เข็มขัด (Seatbelt)
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: Basic Driving -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="grid md:grid-cols-2">
+                <div class="bg-slate-100 aspect-video md:aspect-auto flex items-center justify-center relative">
+                    <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=Keep+Left" alt="Keep Left"
+                        class="w-full h-full object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">Step 2</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl text-navy-900 mb-4">2. Basics / 基本走行<br><span
+                            class="text-sm text-gray-500 font-normal">キープレフト・一時停止</span></h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <span class="block font-bold text-gray-800">Keep Left / キープレフト</span>
+                            <span class="block th-text text-gray-600">ชิดซ้ายเสมอ (ห่างขอบ 1 เมตร) ห้ามกินเลนขวา</span>
+                        </li>
+                        <li>
+                            <span class="block font-bold text-gray-800">Stop Sign / 一時停止</span>
+                            <span class="block th-text text-gray-600">ล้อต้อง <span
+                                    class="text-red-600 font-bold">หยุดนิ่งสนิท</span> (นับในใจ 1-2-3)
+                                แล้วมองซ้ายขวา</span>
+                        </li>
+                        <li>
+                            <span class="block font-bold text-gray-800">Speed / 速度</span>
+                            <span class="block th-text text-gray-600">ทางตรง 40-50 km/h (ต้องทำความเร็ว) /
+                                ทางแคบให้ชะลอ</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: Turning -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="grid md:grid-cols-2">
+                <div class="bg-slate-100 aspect-video md:aspect-auto flex items-center justify-center relative">
+                    <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=Blind+Spot+Check" alt="Blind Spot Check"
+                        class="w-full h-full object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">Step 3</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl text-navy-900 mb-4">3. Turning / 右左折<br><span
+                            class="text-sm text-gray-500 font-normal">交差点と曲がり方</span></h3>
+                    <div class="space-y-3">
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <span class="block font-bold text-blue-800 text-sm mb-1">Safety Routine (3-Point
+                                Check)</span>
+                            <span class="th-text text-gray-700">1. กระจกหลัง &nbsp; 2. กระจกข้าง &nbsp; 3. <span
+                                    class="font-bold text-red-600">มองข้ามไหล่</span> (Blind Spot)</span>
+                        </div>
+                        <ul class="space-y-4 pt-2">
+                            <li>
+                                <span class="block font-bold text-gray-800">Left Turn / 左折</span>
+                                <span class="block th-text text-gray-600">เช็ค 3 จุด → <span
+                                        class="font-bold">เบียดชิดซ้าย (70cm)</span> กันมอเตอร์ไซค์ → เลี้ยวช้าๆ</span>
+                            </li>
+                            <li>
+                                <span class="block font-bold text-gray-800">Right Turn / 右折</span>
+                                <span class="block th-text text-gray-600">เช็ค 3 จุด → ชิดเส้นกลาง → เลี้ยวผ่าน <span
+                                        class="font-bold">ด้านใน</span> จุดศูนย์กลางแยก</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4: S-Curve & Crank (NEW) -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="grid md:grid-cols-2">
+                <div class="bg-slate-100 aspect-video md:aspect-auto flex items-center justify-center relative">
+                    <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=S-Curve+%26+Crank" alt="S-Curve & Crank"
+                        class="w-full h-full object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">Step 4</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl text-navy-900 mb-4">4. S-Curve & Crank<br><span
+                            class="text-sm text-gray-500 font-normal">S字・クランク (難所)</span></h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <span class="block font-bold text-gray-800">S-Curve / S字</span>
+                            <span class="block th-text text-gray-600">
+                                - Slow: เข้าช้าๆ เลี้ยงเบรค<br>
+                                - Vision: มองไกลไปที่ทางออก<br>
+                                - Exit: มองข้ามไหล่เช็คหลังก่อนออก
+                            </span>
+                        </li>
+                        <li>
+                            <span class="block font-bold text-gray-800">Crank / クランク</span>
+                            <span class="block th-text text-gray-600">
+                                - 90 Degree: หักพวงมาลัยเยอะกว่าปกติ<br>
+                                - Recovery: ถ้าไม่พ้น <span class="font-bold text-red-600">ให้หยุดแล้วถอย</span> (ถอยได้
+                                1-3 โดยไม่ตก)
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5: 2025 Updates -->
+        <div
+            class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden ring-2 ring-safety-yellow/50">
+            <div class="grid md:grid-cols-2">
+                <div class="bg-slate-100 aspect-video md:aspect-auto flex items-center justify-center relative">
+                    <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=Railroad+Crossing" alt="Railroad Crossing"
+                        class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-2 left-2 bg-safety-yellow text-navy-900 font-bold text-xs px-2 py-1 rounded">
+                        2025 UPDATE</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl text-navy-900 mb-4">5. Critical Areas (2025)<br><span
+                            class="text-sm text-gray-500 font-normal">追加ポイント (踏切・横断歩道)</span></h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <span class="block font-bold text-gray-800">Railroad / 踏切</span>
+                            <span class="block th-text text-gray-600">หยุด → <span
+                                    class="text-red-600 font-bold">เปิดกระจกฟังเสียง</span> → มองซ้ายขวา</span>
+                        </li>
+                        <li>
+                            <span class="block font-bold text-gray-800">Crosswalk / 横断歩道</span>
+                            <span class="block th-text text-gray-600">มีคนยืนอยู่ = <span
+                                    class="text-red-600 font-bold">ต้องหยุด 100%</span> (ห้ามเร่งผ่าน)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vocab -->
+        <div class="bg-navy-900 text-white rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-4 text-center">Japanese Commands <br><span
+                    class="text-sm opacity-70">คำสั่งภาษาญี่ปุ่นที่ต้องจำ</span></h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Migi (ミギ)</span>
+                    <span class="th-text">ขวา (Right)</span>
+                </div>
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Hidari (ヒダリ)</span>
+                    <span class="th-text">ซ้าย (Left)</span>
+                </div>
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Massugu (マッスグ)</span>
+                    <span class="th-text">ตรงไป (Straight)</span>
+                </div>
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Tomare (トマレ)</span>
+                    <span class="th-text">หยุด (Stop)</span>
+                </div>
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Yukkuri (ユックリ)</span>
+                    <span class="th-text">ช้าๆ (Slowly)</span>
+                </div>
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Kousaten (コウサテン)</span>
+                    <span class="th-text">สี่แยก (Intersection)</span>
+                </div>
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Shingou (シンゴウ)</span>
+                    <span class="th-text">ไฟจราจร (Traffic Light)</span>
+                </div>
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Hasshin (ハッシン)</span>
+                    <span class="th-text">ออกรถ (Start)</span>
+                </div>
+                <div class="bg-white/10 p-2 rounded">
+                    <span class="block font-bold text-yellow-300">Back (バック)</span>
+                    <span class="th-text">ถอยหลัง (Reverse)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6 (FAIL) -->
+        <div class="bg-red-50 rounded-2xl border border-red-200 p-6">
+            <h3 class="font-bold text-red-700 text-xl mb-4 flex items-center gap-2">
+                <span>🛑</span>
+                <span>Immediate Failure / 一発アウト</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="bg-white p-3 rounded-lg border border-red-100 shadow-sm flex justify-between items-center">
+                    <span class="font-bold text-red-600">Signal Ignore</span>
+                    <span class="th-text text-sm text-gray-500">ฝ่าไฟแดง</span>
+                </div>
+                <div class="bg-white p-3 rounded-lg border border-red-100 shadow-sm flex justify-between items-center">
+                    <span class="font-bold text-red-600">Stop Violation</span>
+                    <span class="th-text text-sm text-gray-500">不停止</span>
+                </div>
+                <div class="bg-white p-3 rounded-lg border border-red-100 shadow-sm flex justify-between items-center">
+                    <span class="font-bold text-red-600">Reverse Run</span>
+                    <span class="th-text text-sm text-gray-500">逆走</span>
+                </div>
+                <div class="bg-white p-3 rounded-lg border border-red-100 shadow-sm flex justify-between items-center">
+                    <span class="font-bold text-red-600">Kerb Contact (Large)</span>
+                    <span class="th-text text-sm text-gray-500">脱輪</span>
+                </div>
+                <div
+                    class="bg-white p-3 rounded-lg border border-red-100 shadow-sm flex justify-between items-center md:col-span-2">
+                    <span class="font-bold text-red-600">Examiner Brake</span>
+                    <span class="th-text text-sm text-gray-500">補助ブレーキ = 即中止</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+        <!-- SECTION: RESULTS -->
+        <section id="screen-result" class="hidden p-6 text-center space-y-8 animate-fade-in">
+            <div class="pt-8">
+                <div id="res-icon" class="text-6xl mb-4 animate-bounce">🏆</div>
+                <h2 id="res-title" class="text-3xl font-bold text-navy-900">Passed!</h2>
+                <p id="res-subtitle" class="th-text text-xl text-gray-600 mt-2">สอบผ่าน!</p>
+            </div>
+
+            <div class="relative w-48 h-48 mx-auto">
+                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                    <span id="res-score" class="text-6xl font-bold text-navy-900">45</span>
+                    <span class="text-gray-400 font-bold">/ 50</span>
+                </div>
+                <svg class="transform -rotate-90 w-full h-full">
+                    <circle cx="96" cy="96" r="88" stroke="#e2e8f0" stroke-width="12" fill="none" />
+                    <circle id="res-circle" cx="96" cy="96" r="88" stroke="#facc15" stroke-width="12" fill="none"
+                        stroke-dasharray="552" stroke-dashoffset="552" class="transition-all duration-1000 ease-out" />
+                </svg>
+            </div>
+
+            <div class="space-y-4">
+                <button id="btn-review" onclick="startReview()"
+                    class="hidden w-full bg-red-50 text-red-600 border border-red-200 font-bold py-4 rounded-xl btn-press">
+                    Review Mistakes / ทบทวนข้อที่ผิด
+                </button>
+                <button onclick="showHome()"
+                    class="w-full bg-gray-200 text-gray-700 font-bold py-4 rounded-xl btn-press">
+                    Back to Home / กลับหน้าหลัก
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Nav (Sticky Footer-ish) - Optional for future features -->
+    <!-- Currently omitted to maximize screen real estate for exam -->
+
+    <script>
+        // --- DATASET: STRICTLY REAL DATA + PLACEHOLDERS ---
+
+        const VERIFIED_QUESTIONS = [
+            // --- SOURCE 1: USER FILE (50 Questions) ---
+            { id: 1, jp: "赤色の点滅信号では、車は徐行して進むことができる。", th: "ที่สัญญาณไฟกระพริบสีแดง รถสามารถขับผ่านไปได้โดยการชะลอความเร็ว", ans: false, exp_jp: "一時停止が必要です。", exp_th: "ไฟกระพริบสีแดงหมายถึง \"หยุดชั่วคราว\" (Stop)" },
+            { id: 2, jp: "信号が青の交差点で右折する場合、対向車線を直進してくる車よりも先に右折してよい。", th: "เมื่อต้องการเลี้ยวขวาที่สัญญาณไฟเขียว คุณสามารถเลี้ยวได้ก่อนรถทางตรงที่สวนมา", ans: false, exp_jp: "直進車や左折車が優先です。", exp_th: "รถทางตรงและรถเลี้ยวซ้ายมีสิทธิ์ไปก่อนเสมอ" },
+            { id: 3, jp: "横断歩道に歩行者がいるときは、その手前で一時停止して道を譲らなければならない。", th: "เมื่อมีคนเดินเท้าอยู่บนทางม้าลาย คุณต้องหยุดรถก่อนถึงทางม้าลายและให้ทางแก่คนเดินเท้า", ans: true, exp_jp: "歩行者優先は絶対的なルールです。", exp_th: "ต้องหยุดให้คนข้ามถนนเสมอ" },
+            { id: 4, jp: "信号が黄色になったとき、停止位置で安全に止まれる場合は、止まらなければならない。", th: "เมื่อสัญญาณไฟเปลี่ยนเป็นสีเหลือง คุณต้องหยุดรถหากสามารถหยุดได้อย่างปลอดภัยที่เส้นหยุด", ans: true, exp_jp: "「止まれ」が原則です。", exp_th: "ไฟเหลืองคือ \"ให้หยุด\" เว้นแต่จะเบรกไม่ทัน" },
+            { id: 5, jp: "救急車が近づいてきたときは、交差点の中であっても直ちに停止しなければならない。", th: "เมื่อรถพยาบาลขับเข้ามาใกล้ คุณต้องหยุดรถทันทีแม้ว่าจะอยู่กลางสี่แยกก็ตาม", ans: false, exp_jp: "交差点を避けて、左側に寄って一時停止します。", exp_th: "ห้ามหยุดกลางแยก ให้ขับพ้นแยกไปก่อนแล้วค่อยจอดชิดซ้าย" },
+            { id: 6, jp: "トンネルの中では、車両通行帯（レーン）がある場合でも追い越しは禁止されている。", th: "ห้ามแซงในอุโมงค์ แม้ว่าจะมีช่องจราจร (เลน) ก็ตาม", ans: false, exp_jp: "レーンがあれば追い越し可能です。", exp_th: "ถ้ามีเส้นแบ่งเลนในอุโมงค์ สามารถแซงได้" },
+            { id: 7, jp: "警報機が鳴っていなければ、踏切で一時停止せずに通過してよい。", th: "หากไม่มีเสียงสัญญาณเตือน สามารถขับผ่านทางรถไฟไปได้เลยโดยไม่ต้องหยุด", ans: false, exp_jp: "必ず一時停止して安全確認が必要です。", exp_th: "ต้องหยุดดูซ้ายขวาก่อนข้ามทางรถไฟเสมอ" },
+            { id: 8, jp: "原動機付自転車（50cc以下）は、3車線以上の交差点では原則として二段階右折をしなければならない。", th: "โดยหลักการแล้ว รถจักรยานยนต์ขนาดเล็ก (ไม่เกิน 50cc) ต้องเลี้ยวขวาแบบสองจังหวะ (Two-step turn) ในสี่แยกที่มี 3 เลนขึ้นไป", ans: true, exp_jp: "3車線以上は二段階右折が義務です。", exp_th: "ถนน 3 เลนขึ้นไปต้องเลี้ยวแบบสองจังหวะ" },
+            { id: 9, jp: "運転中に携帯電話を手で持って通話したり、画面を注視したりすることは法律で禁止されている。", th: "การถือโทรศัพท์มือถือเพื่อสนทนาหรือจ้องมองหน้าจอขณะขับรถถือเป็นสิ่งผิดกฎหมาย", ans: true, exp_jp: "厳罰化されています。", exp_th: "ห้ามถือโทรศัพท์คุยหรือดูจอขณะขับรถเด็ดขาด" },
+            { id: 10, jp: "後部座席の同乗者は、高速道路以外ではシートベルトを着用しなくてもよい。", th: "ผู้โดยสารเบาะหลังไม่จำเป็นต้องคาดเข็มขัดนิรภัยเมื่อขับขี่บนถนนทั่วไป", ans: false, exp_jp: "全席着用義務があります。", exp_th: "ต้องคาดเข็มขัดนิรภัยทุกที่นั่ง" },
+            { id: 11, jp: "「車両進入禁止」の標識がある道路でも、自転車なら通行してもよい。", th: "แม้จะมีป้าย \"ห้ามยานพาหนะเข้า\" แต่รถจักรยานสามารถผ่านเข้าไปได้", ans: false, exp_jp: "自転車も「軽車両」なので進入禁止です。", exp_th: "จักรยานก็ห้ามเข้า เว้นแต่มีป้ายยกเว้น" },
+            { id: 12, jp: "徐行とは、すぐに停止できる速度（おおむね時速10キロ以下）で進むことである。", th: "\"การชะลอความเร็ว\" หมายถึงการขับด้วยความเร็วที่สามารถหยุดรถได้ทันที (ประมาณ 10 กม./ชม. หรือต่ำกว่า)", ans: true, exp_jp: "いつでも止まれる速度が徐行です。", exp_th: "Joko (ชะลอความเร็ว) คือความเร็วที่เบรกหยุดได้ทันที" },
+            { id: 13, jp: "駐車禁止場所であっても、人の乗り降りのための停止であれば、駐車にはならない。", th: "ในเขตห้ามจอด หากเป็นการหยุดรถเพื่อรับ-ส่งผู้โดยสาร จะไม่ถือว่าเป็นการจอดรถ", ans: true, exp_jp: "人の乗り降りは「停車」扱いです。", exp_th: "รับส่งคนถือเป็นการ \"หยุดรถชั่วคราว\"" },
+            { id: 14, jp: "交差点とその手前30メートル以内の場所では、追い越しをしてはならない。", th: "ห้ามแซงรถคันอื่นในบริเวณสี่แยกและระยะ 30 เมตรก่อนถึงสี่แยก", ans: true, exp_jp: "交差点付近は追い越し禁止です。", exp_th: "อันตราย ห้ามแซงใกล้แยก" },
+            { id: 15, jp: "進路変更をする3秒前に合図（ウインカー）を出さなければならない。", th: "ต้องเปิดไฟเลี้ยวล่วงหน้า 3 วินาทีก่อนเปลี่ยนช่องจราจร", ans: true, exp_jp: "進路変更は3秒前です。", exp_th: "เปลี่ยนเลนให้เปิดไฟก่อน 3 วินาที" },
+            { id: 16, jp: "免許取得後1年未満の運転者は、初心者マークを表示する義務がある。", th: "ผู้ที่ได้รับใบขับขี่มาไม่ถึง 1 ปี ต้องติดป้ายมือใหม่ (Wakaba Mark) ที่ตัวรถ", ans: true, exp_jp: "1年は表示義務期間です。", exp_th: "มือใหม่ขับรถต้องติดป้ายนี้ 1 ปี" },
+            { id: 17, jp: "6歳未満の子供を乗せるときは、チャイルドシートを必ず使用しなければならない。", th: "เมื่อมีเด็กอายุต่ำกว่า 6 ปีโดยสารในรถ จำเป็นต้องใช้ที่นั่งนิรภัย (Child Seat) เสมอ", ans: true, exp_jp: "抱っこ乗車は禁止です。", exp_th: "เด็กต่ำกว่า 6 ขวบต้องนั่งคาร์ซีท" },
+            { id: 18, jp: "水たまりを通るとき、泥はねをして歩行者に迷惑をかけても、運転者の責任にはならない。", th: "เมื่อขับรถผ่านแอ่งน้ำ หากน้ำกระเด็นใส่คนเดินเท้า ผู้ขับขี่จะไม่ถือว่ามีความผิด", ans: false, exp_jp: "運転者の責任です。", exp_th: "ผิดกฎหมาย ต้องขับช้าๆ ระวังน้ำกระเด็น" },
+            { id: 19, jp: "右左折が終わった後も、合図を出し続けてもよい。", th: "หลังจากเลี้ยวเสร็จแล้ว สามารถเปิดไฟเลี้ยวค้างไว้ได้", ans: false, exp_jp: "すぐに消さなければなりません。", exp_th: "เลี้ยวเสร็จต้องปิดไฟเลี้ยวทันที" },
+            { id: 20, jp: "夜間走行中、対向車がいる場合でもハイビーム（上向きライト）のままでよい。", th: "เมื่อขับรถตอนกลางคืน และมีรถสวนมา สามารถเปิดไฟสูงค้างไว้ได้", ans: false, exp_jp: "対向車がいるときはロービームにします。", exp_th: "ต้องเปลี่ยนเป็นไฟต่ำเมื่อมีรถสวนมา" },
+            { id: 21, jp: "16歳以上であれば、特定小型原付（電動キックボード等）を免許なしで運転できる。", th: "ผู้ที่มีอายุ 16 ปีขึ้นไป สามารถขับขี่สกู๊ตเตอร์ไฟฟ้าประเภทพิเศษ (เช่น LUUP) ได้โดยไม่ต้องมีใบขับขี่", ans: true, exp_jp: "免許不要ですが交通ルールは守る必要があります。", exp_th: "กฎใหม่ อนุญาตให้คนอายุ 16+ ขี่ได้โดยไม่ต้องใบขับขี่" },
+            { id: 22, jp: "自転車に乗るすべての人は、ヘルメットを着用するよう努めなければならない。", th: "ผู้ขับขี่รถจักรยานทุกคน ควรพยายามสวมใส่หมวกกันน็อค", ans: true, exp_jp: "全年齢で努力義務化されています。", exp_th: "กฎหมายสนับสนุนให้ใส่หมวกกันน็อคทุกคน" },
+            { id: 23, jp: "前の車に極端に接近して走行することは、妨害運転（あおり運転）として処罰される。", th: "การขับจี้ท้ายรถคันหน้ามากเกินไป จะถูกลงโทษในฐานความผิด \"ขับขี่แบบขัดขวาง/คุกคาม\"", ans: true, exp_jp: "免許取り消しの対象となります。", exp_th: "โทษหนักมาก อาจถึงขั้นโดนยึดใบขับขี่" },
+            { id: 24, jp: "荷物を積みすぎて、バックミラーで後ろが見えなくても運転してよい。", th: "สามารถขับรถได้แม้วางสัมภาระจนมองไม่เห็นกระจกหลัง", ans: false, exp_jp: "後方が確認できない状態での運転は禁止です。", exp_th: "ต้องมองเห็นด้านหลังได้ชัดเจน" },
+            { id: 25, jp: "ビールをコップ一杯飲んだだけなら、運転してもよい。", th: "หากดื่มเบียร์เพียงแก้วเดียว สามารถขับรถได้", ans: false, exp_jp: "酒気帯び運転になります。絶対禁止です。", exp_th: "ดื่มแล้วขับผิดกฎหมายทันที" },
+            { id: 26, jp: "過労で眠気があるときは、運転してはならない。", th: "ห้ามขับขี่เมื่อรู้สึกง่วงนอนหรือเหนื่อยล้าจนเกินไป", ans: true, exp_jp: "正常な運転ができない恐れがあるときは運転禁止です。", exp_th: "ถ้าร่างกายไม่ไหว ห้ามขับรถ" },
+            { id: 27, jp: "狭い坂道では、上りの車が下りの車に道を譲る。", th: "บนทางลาดชันที่แคบ \"รถขาขึ้น\" ต้องหยุดให้ทางแก่ \"รถขาลง\"", ans: false, exp_jp: "「下り」の車が譲ります。", exp_th: "ผิด \"รถขาลง\" ต้องหยุดให้ \"รถขาขึ้น\" ไปก่อน" },
+            { id: 28, jp: "二輪車（バイク）は、渋滞時に路側帯を通行してもよい。", th: "รถจักรยานยนต์สามารถวิ่งบนไหล่ทางได้เมื่อรถติด", ans: false, exp_jp: "路側帯の走行は禁止です。", exp_th: "ห้ามวิ่งไหล่ทางทุกกรณี" },
+            { id: 29, jp: "乗合バスが発進の合図を出したら、後続車は進路を譲らなければならない。", th: "เมื่อรถเมล์เปิดไฟขอออกตัว รถคันหลังต้องให้ทาง", ans: true, exp_jp: "急ブレーキにならない限り譲ります。", exp_th: "ต้องให้รถเมล์ออกก่อน" },
+            { id: 30, jp: "地震で車を置いて逃げるときは、エンジンキーを持って避難する。", th: "เมื่อทิ้งรถเพื่อหนีภัยแผ่นดินไหว ให้ดึงกุญแจรถออกและพกติดตัวไปด้วย", ans: false, exp_jp: "キーはつけたまま避難します。", exp_th: "ต้องทิ้งกุญแจไว้" },
+            { id: 31, jp: "道路の曲がり角付近は、追い越し禁止場所である。", th: "ห้ามแซงบริเวณทางโค้ง", ans: true, exp_jp: "見通しが悪いため禁止です。", exp_th: "ทางโค้งอันตราย ห้ามแซง" },
+            { id: 32, jp: "消防用防火水槽の標識から5メートル以内の場所は、駐車禁止である。", th: "ห้ามจอดรถภายในระยะ 5 เมตรจากป้ายถังน้ำดับเพลิง", ans: true, exp_jp: "5メートル以内は駐車禁止です。", exp_th: "ห้ามจอดใกล้จุดดับเพลิง 5 เมตร" },
+            { id: 33, jp: "12歳未満の子供3人は、大人2人として定員を計算する。", th: "เด็กอายุต่ำกว่า 12 ปี จำนวน 3 คน ให้นับเป็นผู้ใหญ่ 2 คนในการคำนวณจำนวนผู้โดยสาร", ans: true, exp_jp: "子ども（12歳未満）× 2/3 ＝ 大人換算です。", exp_th: "สูตรคำนวณถูกต้อง เด็ก 3 คน = ผู้ใหญ่ 2 คน" },
+            { id: 34, jp: "高速自動車国道での普通乗用車の法定最高速度は、標識がない場合、時速100キロメートルである。", th: "ความเร็วสูงสุดตามกฎหมายของรถยนต์นั่งส่วนบุคคลบนทางด่วน (หากไม่มีป้ายระบุ) คือ 100 กม./ชม.", ans: true, exp_jp: "原則100km/hです。", exp_th: "ความเร็วปกติบนทางด่วนคือ 100" },
+            { id: 35, jp: "雨の日は路面が滑りやすいため、停止距離は晴れの日に比べて短くなる。", th: "ในวันฝนตก ระยะเบรกจะสั้นกว่าในวันที่อากาศแจ่มใสเนื่องจากถนนลื่น", ans: false, exp_jp: "停止距離は「長く」なります。", exp_th: "ถนนลื่น เบรกต้องใช้ระยะทาง \"ยาวขึ้น\"" },
+            { id: 36, jp: "交差点で右左折する場合、交差点の30メートル手前で合図を出す。", th: "เมื่อจะเลี้ยวซ้ายหรือขวาที่สี่แยก ให้เปิดไฟเลี้ยวก่อนถึงสี่แยก 30 เมตร", ans: true, exp_jp: "右左折は30m手前です。", exp_th: "เลี้ยวซ้ายขวา ต้องเปิดไฟก่อน 30 เมตร" },
+            { id: 37, jp: "原動機付自転車の法定最高速度は、時速30キロメートルである。", th: "ความเร็วสูงสุดตามกฎหมายของรถจักรยานยนต์ขนาดเล็ก (ไม่เกิน 50cc) คือ 30 กม./ชม.", ans: true, exp_jp: "30km/hが上限です。", exp_th: "มอเตอร์ไซค์เล็กห้ามขับเกิน 30" },
+            { id: 38, jp: "「警笛鳴らせ」の標識がある場所では、見通しが悪くなくてもクラクションを鳴らさなければならない。", th: "ในบริเวณที่มีป้าย \"จงกดแตร\" ต้องบีบแตรเสมอ แม้ว่าจะมองเห็นทางข้างหน้าได้ชัดเจนก็ตาม", ans: true, exp_jp: "標識がある場所では必ず鳴らす義務があります。", exp_th: "ถ้ามีป้ายสั่ง ต้องบีบแตรทุกครั้ง" },
+            { id: 39, jp: "免許証を家に忘れて運転した場合は、無免許運転になる。", th: "หากลืมใบขับขี่ไว้ที่บ้านแล้วออกมาขับรถ จะถือว่าเป็น \"การขับขี่โดยไม่มีใบอนุญาต\" (Unlicensed Driving)", ans: false, exp_jp: "「免許不携帯」という別の違反になります。", exp_th: "เรียกว่า \"ไม่พกใบขับขี่\"" },
+            { id: 40, jp: "二重追い越し（追い越しをしている車をさらに追い越すこと）は禁止されている。", th: "ห้ามแซงซ้อน (แซงรถที่กำลังแซงรถคันอื่นอยู่)", ans: true, exp_jp: "大変危険なため禁止されています。", exp_th: "ห้ามแซงรถที่กำลังแซงอยู่" },
+            { id: 41, jp: "オートマチック車を駐車するときは、チェンジレバーを「P」に入れ、ハンドブレーキをかける。", th: "เมื่อจอดรถเกียร์ออโต้ ให้เข้าเกียร์ \"P\" และดึงเบรกมือ", ans: true, exp_jp: "これが正しい駐車措置です。", exp_th: "จอดรถต้องเข้าเกียร์ P และดึงเบรกมือ" },
+            { id: 42, jp: "カーブを曲がるときは、カーブの途中でブレーキをかけながら速度を落とすのがよい。", th: "เมื่อเข้าโค้ง ควรเหยียบเบรกเพื่อลดความเร็วขณะอยู่ในโค้ง", ans: false, exp_jp: "カーブの「手前」で十分に減速します。", exp_th: "ต้องลดความเร็ว \"ก่อน\" เข้าโค้ง" },
+            { id: 43, jp: "優先道路に入る場合でも、必ず一時停止しなければならない。", th: "เมื่อจะขับเข้าสู่ \"ถนนสายหลัก\" (Priority Road) ต้องหยุดรถเสมอ", ans: false, exp_jp: "徐行で安全確認をして進入すればよい場合もあります。", exp_th: "ไม่ต้องหยุดเสมอไป แต่ต้องให้รถทางเอกไปก่อน" },
+            { id: 44, jp: "横断歩道がない交差点を通行する歩行者がいた場合、車は道を譲る必要はない。", th: "หากมีคนข้ามถนนตรงสี่แยกที่ไม่มีทางม้าลาย รถไม่จำเป็นต้องให้ทาง", ans: false, exp_jp: "歩行者の通行を妨げてはいけません。", exp_th: "สี่แยกทุกที่ รถต้องระวังและให้ทางคนข้ามถนน" },
+            { id: 45, jp: "信号が赤色で、青色の左矢印が出ているときは、自動車は左折できるが、原付は左折できない。", th: "เมื่อไฟแดงแต่มี \"ลูกศรเขียวเลี้ยวซ้าย\" ติดขึ้น รถยนต์สามารถเลี้ยวซ้ายได้ แต่รถมอเตอร์ไซค์เล็ก (50cc) ห้ามเลี้ยว", ans: false, exp_jp: "原付も青色矢印に従って進むことができます。", exp_th: "มอเตอร์ไซค์เล็กก็สามารถเลี้ยวตามลูกศรได้" },
+            { id: 46, jp: "故障のためにやむを得ず駐車禁止場所に駐車するときは、違反にならない。", th: "หากรถเสียและจำเป็นต้องจอดในที่ห้ามจอด จะไม่ถือว่าเป็นความผิด", ans: false, exp_jp: "故障であっても駐車違反になります。", exp_th: "รถเสียก็ห้ามจอดขวาง (ในข้อสอบถือว่าผิด)" },
+            { id: 47, jp: "長い下り坂では、フットブレーキを使いすぎると効かなくなる恐れがあるため、エンジンブレーキ（低速ギア）を活用する。", th: "การลงเขาทางยาว ควรใช้ \"Engine Brake\" (เกียร์ต่ำ) ช่วย เพราะการเหยียบเบรกเท้าตลอดเวลาอาจทำให้เบรกไม่ทำงาน (เบรกแตก)", ans: true, exp_jp: "フェード現象などを防ぐため正解です。", exp_th: "ลงเขาต้องใช้เกียร์ต่ำช่วยเบรก" },
+            { id: 48, jp: "安全地帯に歩行者がいなくても、そのそばを通るときは徐行しなければならない。", th: "เมื่อขับผ่าน \"พื้นที่ปลอดภัย\" (Safety Zone) ต้องชะลอความเร็วเสมอ แม้จะไม่มีคนยืนอยู่ก็ตาม", ans: false, exp_jp: "歩行者が「いるとき」は徐行です。", exp_th: "ถ้าไม่มีคน ไม่ต้องชะลอความเร็วก็ได้" },
+            { id: 49, jp: "警察官が腕を垂直に上げているときは、警察官の身体の正面に対面する交通にとっては「赤色の信号」と同じ意味である。", th: "เมื่อตำรวจจราจรยกแขนขึ้นตั้งฉาก สำหรับรถที่อยู่ด้านหน้าของตำรวจ จะมีความหมายเท่ากับ \"ไฟแดง\"", ans: true, exp_jp: "対面する交通は赤信号と同じです。", exp_th: "เมื่อตำรวจยกมือขึ้น รถที่อยู่ข้างหน้าต้องหยุด" },
+            { id: 50, jp: "歩行者に泥水をかけないようにするためには、一時停止をしなければならないわけではない。", th: "เพื่อป้องกันไม่ให้น้ำกระเด็นใส่คนเดินเท้า ไม่จำเป็นต้องถึงกับ \"หยุดรถ\" ก็ได้", ans: true, exp_jp: "「徐行」すればよく、「一時停止」の義務はありません。", exp_th: "แค่ \"ชะลอความเร็ว\" ก็พอ ไม่ต้องถึงกับเบรกหยุดสนิท" },
+
+            // --- SOURCE 2: Ziplus.jp Samples ---
+            { id: 60, jp: "駐車禁止の標識がある場所では、人の乗り降りのために停止することも禁止されている。", th: "ในบริเวณที่มีป้าย \"ห้ามจอด\" ห้ามหยุดรถเพื่อรับ-ส่งผู้โดยสาร", ans: false, exp_jp: "人の乗り降りは「停車」なので可能です。", exp_th: "ป้ายห้ามจอด แต่ \"หยุด\" รับส่งคนได้" },
+            { id: 61, jp: "警察官が腕を垂直に上げているとき、警察官の身体の正面に対面する交通は赤信号と同じ意味である。", th: "เมื่อตำรวจยกแขนขึ้นตั้งฉาก รถที่อยู่ด้านหน้าตำรวจให้ถือว่าเป็นไฟแดง", ans: true, exp_jp: "対面は赤信号です。", exp_th: "ด้านหน้าตำรวจ = ไฟแดง" }
+        ];
+
+        // Placeholder generator for IDs up to 500 (For verified manual entry later)
+        const QUESTION_POOL_SIZE = 500;
+
+        // Populate full array (mostly empty/null)
+        let ALL_QUESTIONS = new Array(QUESTION_POOL_SIZE).fill(null);
+
+        // Fill verified
+        VERIFIED_QUESTIONS.forEach((q, index) => {
+            if (index < QUESTION_POOL_SIZE) {
+                // Ensure ID is set
+                q.id = index + 1;
+                ALL_QUESTIONS[index] = q;
+            }
+        });
+
+        // --- APP STATE ---
+        let examQuestions = [];
+        let incorrectQuestions = [];
+        let currentQIndex = 0;
+        let score = 0;
+        let isReviewMode = false;
+
+        // --- CORE FUNCTIONS ---
+
+        function startExam() {
+            // Filter only valid (non-null) questions for now to avoid crashes
+            const validQuestions = ALL_QUESTIONS.filter(q => q !== null);
+
+            // If we have less than 50 valid questions, use all of them.
+            // If we have more, pick random 50.
+            if (validQuestions.length <= 50) {
+                examQuestions = shuffleArray([...validQuestions]);
+            } else {
+                examQuestions = shuffleArray([...validQuestions]).slice(0, 50);
+            }
+
+            incorrectQuestions = [];
+            currentQIndex = 0;
+            score = 0;
+            isReviewMode = false;
+
+            document.getElementById('screen-home').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-guide').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+
+            updateProgress();
+            loadQuestion();
+        }
+
+        function startReview() {
+            examQuestions = [...incorrectQuestions];
+            incorrectQuestions = []; // Reset for this round
+            currentQIndex = 0;
+            score = 0;
+            isReviewMode = true; // Flag for different end screen behavior? Or just loop.
+
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+
+            updateProgress();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = examQuestions[currentQIndex];
+
+            // Text
+            document.getElementById('q-current').textContent = currentQIndex + 1;
+            document.getElementById('q-total').textContent = examQuestions.length;
+            document.getElementById('q-text-th').textContent = q.th || "Question Placeholder";
+            document.getElementById('q-text-jp').textContent = q.jp || "質問データなし";
+
+            // Reset modal state just in case
+            hideFeedback();
+
+            updateProgress();
+        }
+
+        function submitAnswer(userAns) {
+            const q = examQuestions[currentQIndex];
+            const isCorrect = (userAns === q.ans);
+
+            if (isCorrect) {
+                score++;
+                // Instant Feedback for Correct? -> No, speed is key. Just next.
+                // OR: Audio cue? 
+                nextQuestion();
+            } else {
+                // Wrong -> Show Feedback Modal
+                if (!isReviewMode) {
+                    incorrectQuestions.push(q);
+                }
+                showFeedback(q);
+            }
+        }
+
+        function showFeedback(q) {
+            const modal = document.getElementById('modal-feedback');
+            const content = document.getElementById('feedback-content');
+
+            // Setup content
+            const isAnsTrue = q.ans === true;
+            document.getElementById('fb-icon').textContent = "✕";
+            document.getElementById('fb-icon').className = "w-16 h-16 mx-auto rounded-full flex items-center justify-center text-4xl mb-3 shadow-inner bg-red-100 text-red-600";
+            document.getElementById('fb-title').textContent = "Incorrect! / ผิด";
+            document.getElementById('fb-title').className = "text-2xl font-bold mb-1 text-red-600";
+            document.getElementById('fb-subtitle').textContent = isAnsTrue ? "Answer is TRUE (〇)" : "Answer is FALSE (✕)";
+
+            document.getElementById('fb-expl-th').textContent = q.exp_th;
+            document.getElementById('fb-expl-jp').textContent = q.exp_jp;
+
+            // Show
+            modal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                content.classList.remove('translate-y-full');
+            });
+        }
+
+        function hideFeedback() {
+            const modal = document.getElementById('modal-feedback');
+            const content = document.getElementById('feedback-content');
+
+            content.classList.add('translate-y-full');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function nextQuestion() {
+            // Close modal if open
+            if (!document.getElementById('modal-feedback').classList.contains('hidden')) {
+                hideFeedback();
+                // small delay to allow transition
+                setTimeout(() => {
+                    advance();
+                }, 300);
+            } else {
+                advance();
+            }
+
+            function advance() {
+                currentQIndex++;
+                if (currentQIndex < examQuestions.length) {
+                    loadQuestion();
+                } else {
+                    finishExam();
+                }
+            }
+        }
+
+        function finishExam() {
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+
+            // Display Score
+            document.getElementById('res-score').textContent = score;
+            const percentage = (score / examQuestions.length) * 100;
+            const passed = percentage >= 90; // 90% Requirement
+
+            const circle = document.getElementById('res-circle');
+            const circumference = 552;
+            const offset = circumference - (percentage / 100) * circumference;
+
+            // Animate Circle
+            setTimeout(() => {
+                circle.style.strokeDashoffset = offset;
+                circle.style.stroke = passed ? '#22c55e' : '#ef4444'; // Green or Red
+            }, 100);
+
+            // Text
+            if (passed) {
+                document.getElementById('res-title').textContent = "PASSED! 🎉";
+                document.getElementById('res-title').className = "text-3xl font-bold text-green-600";
+                document.getElementById('res-subtitle').textContent = "ยินดีด้วย! คุณสอบผ่าน";
+                document.getElementById('res-icon').textContent = "🏆";
+            } else {
+                document.getElementById('res-title').textContent = "Not Passed";
+                document.getElementById('res-title').className = "text-3xl font-bold text-gray-700";
+                document.getElementById('res-subtitle').textContent = "พยายามอีกนิด! (ต้องการ 90%)";
+                document.getElementById('res-icon').textContent = "💪";
+            }
+
+            // Review Button
+            const btnReview = document.getElementById('btn-review');
+            if (incorrectQuestions.length > 0) {
+                btnReview.classList.remove('hidden');
+            } else {
+                btnReview.classList.add('hidden');
+            }
+        }
+
+        function showHome() {
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-guide').classList.add('hidden');
+            document.getElementById('screen-home').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showGuide() {
+            document.getElementById('screen-home').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-guide').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function updateProgress() {
+            const percent = ((currentQIndex) / examQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = percent + '%';
+        }
+
+        // Helper
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+</body>
+
+</html>
